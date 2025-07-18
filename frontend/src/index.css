@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+/* Target only the active (current) step icon */
+.ant-steps-item-active .ant-steps-item-icon {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: white;
+}
+
+/* Change icon color (finish step) */
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #fef2f2 !important;
+  border-color: #fef2f2 !important;
+  color: white;
+}
+
+/* Change checkmark color (finish step) */
+.ant-steps .ant-steps-item.ant-steps-item-finish .ant-steps-item-icon .ant-steps-icon {
+  color: #ef4444 !important; /* Or any color you want */
+}
+.ant-steps-item-tail::after {
+  background-color: red !important;
+  height: 5px !important;
+}
