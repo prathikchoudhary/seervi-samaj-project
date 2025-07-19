@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <Sigup />
-
+      
     </div>
   )
 }
