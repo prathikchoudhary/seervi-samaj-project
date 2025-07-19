@@ -7,9 +7,8 @@ function App() {
   return (
     <div>
       <Sigup />
-      
+
     </div>
   )
 }
-
 export default App
