@@ -1,21 +1,23 @@
 import React,{useState} from 'react'
-import { Button,PageOne } from './index'
+import { Button,PageOne, PageTwo, PageThree } from './index'
 import { message, Steps } from 'antd';
-import { useForm } from 'react-hook-form';
+import { useForm,FormProvider  } from 'react-hook-form';
+
 export default function Stepper() {
-    const { register, handleSubmit, formState: { errors }, trigger } = useForm({mode: "onChange"});
+    const methods = useForm({ mode: "onChange" });
+    const { trigger, handleSubmit } = methods;
     const steps = [
         {
             title: 'Personal Details',
-            content: <PageOne register={register} errors={errors} />,
+            content: <PageOne />,
         },
         {
             title: 'Education & Professional Details',
-            content: 'Second-content',
+            content: <PageTwo />,
         },
         {
             title: 'Upload User Image',
-            content: 'Last-content',
+            content: <PageThree />,
         },
     ];
     const [current, setCurrent] = useState(0);
@@ -39,6 +41,8 @@ export default function Stepper() {
     
     const items = steps.map(item => ({ key: item.title, title: item.title }));
     return (
+        <FormProvider {...methods}>
+        
         <div>
             <div>
                 <Steps current={current} items={items} />
@@ -62,5 +66,6 @@ export default function Stepper() {
                 )}
             </div>
         </div>
+        </FormProvider>
     )
 }

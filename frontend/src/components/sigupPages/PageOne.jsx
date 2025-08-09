@@ -1,66 +1,56 @@
-import React from 'react'
 import { Input, Select } from '../index'
+import { useFormContext } from 'react-hook-form';
 
-export default function PageOne({ register, errors }) {
+export default function PageOne() {
+    const { formState: { errors } } = useFormContext();
     return (
         <div>
             <div className='flex flex-col md:flex-row gap-3 mt-5'>
                 <Input
+                    name="firstName"
                     label="First Name*"
                     type="text"
                     placeholder="Enter your first name"
-                    {...register("firstName", {
-                        required: true
-                    })}
-                    error={errors.firstName && "First name is required"}
+                    error={errors.firstName?.message}
                 />
 
                 <Input
+                    name="middleName"
                     label="Middle Name*"
                     type="text"
                     placeholder="Enter your middle name"
-                    {...register("middleName", {
-                        required: true
-                    })}
-                    error={errors.middleName && "Middle name is required"}
+                    error={errors.middleName?.message}
                 />
                 <Input
+                    name="lastName"
                     label="Last Name*"
                     type="text"
                     placeholder="Enter your last name"
-                    {...register("lastName", {
-                        required: true
-                    })}
-                    error={errors.lastName && "Last name is required"}
+                    error={errors.lastName?.message}
                 />
             </div>
             <div className='flex flex-col md:flex-row gap-3 mt-5'>
                 <Input
+                    name="dob"
                     label="Date of Birth*"
                     type="date"
                     placeholder="Enter your date of birth"
-                    {...register("dob", {
-                        required: true
-                    })}
-                    error={errors.dob && "Date of birth is required"}
+                    error={errors.dob?.message}
                 />
                 <Select
-                    label="Gender*"
+                    name="gender"
+                    label="Gender"
                     option={["Male", "Female", "Other"]}
-                    {...register("gender", {
-                        required: true
-                    })}
-                    error={errors.gender && "Gender is required"}
+                    error={errors.gender?.message}
                 />
                 <Select
+                    name="marriageStatus"
                     label="Marriage Status*"
                     option={["Yes", "No"]}
-                    {...register("marriageStatus", {
-                        required: true
-                    })}
-                    error={errors.marriageStatus && "Marriage Status is required"}
+                    error={errors.marriageStatus?.message}
                 />
                 <Select
+                    name="gotra"
                     label="Gotra*"
                     option={[
                         "Aglecha",
@@ -88,10 +78,7 @@ export default function PageOne({ register, errors }) {
                         "Soyal",
                         "Varpha"
                     ]}
-                    {...register("gotra", {
-                        required: true
-                    })}
-                    error={errors.gotra && "Gotra is required"}
+                    error={errors.gotra?.message}
                 />
             </div>
             <div className='mt-4'>
@@ -99,76 +86,42 @@ export default function PageOne({ register, errors }) {
                 <div className='mt-3'>
                     <div className='flex flex-col md:flex-row gap-3'>
                         <Input
+                            name="village"
                             label="Name of Village*"
                             type="text"
-                            {...register("village")}
                         />
                         <Input
+                            name="villagePincode"
                             label="Pincode*"
-                            type="text"
-                            inputMode="numeric"
-                            maxLength={6}
-                            pattern="[0-9]*"
+                            type="number"
                             placeholder="Enter your pincode"
                             className="remove-arrow-input"
-                            {...register("pincod", {
-                                required: "Pincode is required",
-                                validate: (value) =>
-                                    /^[0-9]{6}$/.test(value) || "Pincode must be 6 digits",
-                            })}
                             onInput={(e) => {
-                                // Allow only 6 digits
-                                const rawValue = e.target.value.replace(/\D/g, ""); // Remove non-digits
-                                e.target.value = rawValue.slice(0, 6); // Limit to 6 digits
+                                e.target.value = e.target.value.slice(0, 6);
+                                if (e.target.value.length === 6) {
+                                    e.target.blur();
+                                }
                             }}
+                            error={errors.villagePincode?.message}
                         />
-
                         <Input
+                            name="taluka"
                             label="Taluka*"
                             type="text"
-                            {...register("taluka")}
                         />
                     </div>
                     <div className='mt-3 flex flex-col md:flex-row gap-3'>
                         <Input
+                            name="district"
                             label="District*"
                             type="text"
-                            {...register("district")}
                         />
                         <Select
+                            name="states"
                             label="States*"
                             defaultValue="Rajasthan"
-                            option={[
-                                "Andhra Pradesh",
-                                "Arunachal Pradesh",
-                                "Assam",
-                                "Bihar",
-                                "Chhattisgarh",
-                                "Goa",
-                                "Gujarat",
-                                "Haryana",
-                                "Himachal Pradesh",
-                                "Jharkhand",
-                                "Karnataka",
-                                "Kerala",
-                                "Madhya Pradesh",
-                                "Maharashtra",
-                                "Manipur",
-                                "Meghalaya",
-                                "Mizoram",
-                                "Nagaland",
-                                "Odisha",
-                                "Punjab",
-                                "Rajasthan",
-                                "Sikkim",
-                                "Tamil Nadu",
-                                "Telangana",
-                                "Tripura",
-                                "Uttar Pradesh",
-                                "Uttarakhand",
-                                "West Bengal"
-                            ]}
-                            {...register("states")}
+                            option={["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]}
+                            error={errors.states?.message}
                         />
                     </div>
                 </div>
@@ -178,86 +131,48 @@ export default function PageOne({ register, errors }) {
                 <div className='mt-3'>
                     <div className='flex flex-col md:flex-row gap-3'>
                         <Input
+                            name="streetOne"
                             label="Street 1*"
                             type="text"
                             placeholder="Enter Street 1*"
-                            {...register("streetOne", {
-                                required: true
-                            })}
-                            error={errors.streetOne && "Street 1 is required"}
+                            error={errors.streetOne?.message}
                         />
                         <Input
+                            name="streetTwo"
                             label="Street 2*"
                             type="text"
                             placeholder="Enter Street 2*"
-                            {...register("streetTwo", {
-                                required: true
-                            })}
-                            error={errors.streetTwo && "Street 2 is required"}
+                            error={errors.streetTwo?.message}
                         />
                     </div>
                     <div className='mt-3 flex flex-col md:flex-row gap-3'>
                         <Input
+                            name="city"
                             label="City*"
                             type="text"
                             placeholder="City*"
-                            {...register("city", {
-                                required: true
-                            })}
-                            error={errors.city && "City is required"}
+                            error={errors.city?.message}
                         />
                         <Input
+                            name="currentPincode"
                             label="Pincode*"
                             type="number"
                             placeholder="Enter your pincode"
                             className="remove-arrow-input"
-                            {...register("pincods", {
-
-                                maxLength: 6,
-                                minLength: 6,
-                                validate: (value) => value.length === 6 || "Pincode must be 6 digits"
-                            })}
                             onInput={(e) => {
                                 e.target.value = e.target.value.slice(0, 6);
                                 if (e.target.value.length === 6) {
                                     e.target.blur();
                                 }
                             }}
+                            error={errors.currentPincode?.message}
                         />
                         <Select
+                            name="state"
                             label="State*"
                             defaultValue="Gujarat"
-                            option={[
-                                "Andhra Pradesh",
-                                "Arunachal Pradesh",
-                                "Assam",
-                                "Bihar",
-                                "Chhattisgarh",
-                                "Goa",
-                                "Gujarat",
-                                "Haryana",
-                                "Himachal Pradesh",
-                                "Jharkhand",
-                                "Karnataka",
-                                "Kerala",
-                                "Madhya Pradesh",
-                                "Maharashtra",
-                                "Manipur",
-                                "Meghalaya",
-                                "Mizoram",
-                                "Nagaland",
-                                "Odisha",
-                                "Punjab",
-                                "Rajasthan",
-                                "Sikkim",
-                                "Tamil Nadu",
-                                "Telangana",
-                                "Tripura",
-                                "Uttar Pradesh",
-                                "Uttarakhand",
-                                "West Bengal"
-                            ]}
-                            {...register("state")}
+                            option={["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]}
+                            error={errors.state?.message}
                         />
                     </div>
                 </div>

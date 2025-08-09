@@ -1,53 +1,54 @@
-import React, { useId,useState } from "react";
+import React, { useId, useState } from "react";
+import { useFormContext, Controller } from "react-hook-form";
+import { Input as AntdInput } from 'antd';
 
-const Input = React.forwardRef(function Input(
-    
-    {
-        label,
-        type = "text",
-        className = "",
-        error,
-        ...props
 
-    }, ref) {
-    const id = useId();
-    const [isFocused, setIsFocused] = useState(false);
-    return (
-        <div className="w-full">
-            {label &&
-                <label
-                    className={`inline-block ${error ? "text-red-500" : "text-gray-400"} ${isFocused ? "text-red-500": "text-gray-400"} `}
-                    htmlFor={id}
-                >
-                    {label}
-                </label>
-            }
-            <input
-                type={type}
-                className={`
-                    px-3 py-2 border outline-none focus:bg-red-50 focus:border-red-500 duration-200 
-                    text-black rounded-sm block w-full
-                    ${className}
-                    ${error ? "border-red-500 focus:bg-red-50" : "border-gray-300"}
-                `}
-                id={id}
-                ref={ref}
-                {...props}
-                onInput={(e) => {
-                    e.target.value = e.target.value.toUpperCase();
-                }}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-            />
-            {error && (
-                <p className="text-red-500 text-xs mt-1">
-                    {error.message || error}
-                </p>
-            )}
-        </div>
-    )
-})
+function Input({ name, label, type = "text", className = "", error, ...props }) {
+  const id = useId();
+  const [isFocused, setIsFocused] = useState(false);
+  const { control } = useFormContext();
+  return (
+    <div className="w-full">
+      {label && (
+        <label
+          htmlFor={id}
+          className={`block mb-1 font-medium ${error ? "text-red-500" : "text-gray-700"}`}
+        >
+          {label}
+        </label>
+      )}
+      {/* Using Controller to integrate with react-hook-form */}
+      <Controller
+        name={name}
+        control={control}
+        rules={{ required: `${label} is required` }}
+        defaultValue=""
+        render={({ field }) => (
+          <AntdInput
+            id={id}
+            type={type}
+            {...field}
+            status={error ? "error" : ""}
+            onFocus={() => setIsFocused(true)}
+            onBlur={(e) => {
+              setIsFocused(false);
+              field.onBlur(e);
+            }}
+            className={className}
+            {...props}
+          />
+        )}
+      />
+      {/* Display error message if exists */}
+
+      {error && (
+        <p className="text-red-500 text-xs mt-1">
+          {error.message || error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 
 export default Input;
-
-
