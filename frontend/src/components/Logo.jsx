@@ -1,7 +1,7 @@
-import logo from '../images/Logo.svg';
+import logo from '../images/Logo-Name.svg';
 
-function Logo() {
-    return <img src={logo} width="320px" alt=""  />
+function Logo({className="", ...props}) {
+    return <img src={logo} alt="" className={className} props={props}   />
 }
 
 export default Logo

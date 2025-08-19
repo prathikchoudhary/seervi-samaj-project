@@ -3,7 +3,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { Input as AntdInput } from 'antd';
 
 
-function Input({ name, label, type = "text", className = "", error, ...props }) {
+function Input({ name, label, type = "text", className = "", error, rules,...props }) {
   const id = useId();
   const [isFocused, setIsFocused] = useState(false);
   const { control } = useFormContext();
@@ -21,7 +21,7 @@ function Input({ name, label, type = "text", className = "", error, ...props }) 
       <Controller
         name={name}
         control={control}
-        rules={{ required: `${label} is required` }}
+        rules={rules || { required: `${label} is required` }}
         defaultValue=""
         render={({ field }) => (
           <AntdInput

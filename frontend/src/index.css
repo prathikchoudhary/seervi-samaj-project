@@ -34,3 +34,51 @@ input[type="number"] {
   background-color: red !important;
   height: 5px !important;
 }
+
+
+.ant-menu {
+  background: white !important;
+}
+
+.ant-menu-item {
+  color: #d9251d !important;
+}
+
+.ant-menu-item-selected {
+  background: #ffe6e6 !important;
+  color: #d9251d !important;
+}
+
+
+.ant-menu-item-selected .anticon {
+  color: #d9251d !important;
+}
+
+
+.ant-menu-item:hover {
+  background: #ffe6e6 !important;
+  color: #d9251d !important;
+}
+
+
+
+.ant-layout-sider-trigger {
+  background: #d9251d !important; /* change this to your desired color */
+  color: white !important;         /* icon color */
+  font-size: 16px;                /* optional: make the icon bigger */
+}
+
+/* Optional: change hover color */
+.ant-layout-sider-trigger:hover {
+  background: #c82017 !important;
+}
+
+
+.custom-spin .ant-spin-dot-item {
+  background-color: #ef4444 !important; /* Tailwind red-500 */
+}
+
+.custom-spin .ant-spin-text {
+  color: #ef4444 !important;
+  font-weight: bold;
+}
