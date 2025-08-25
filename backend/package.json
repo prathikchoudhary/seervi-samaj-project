@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for Seervi Samaj Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run tsc && node dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "tsc": "tsc --isolatedModules",
+    "swc": "swc src --out-dir dist --strip-leading-paths --copy-files",
+    "build": "rm -rf ./dist/ && npm run swc",
+    "seed": "npm run tsc && node dist/db/seeds/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.4",
+    "@types/express": "^5.0.3",
+    "@types/nodemailer": "^7.0.1",
+    "@types/otp-generator": "^4.0.2",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.40.0"
+  },
+  "dependencies": {
+    "blazend": "^0.8.0",
+    "date-fns": "^4.1.0",
+    "express": "^5.1.0",
+    "nanoid": "^5.1.5",
+    "node-device-detector": "^2.2.2",
+    "nodemailer": "^7.0.5",
+    "otp-generator": "^4.0.1"
+  }
+}
